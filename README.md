@@ -22,7 +22,7 @@ Make sure you have installed the following libraries:
 [1 A Basic N-Gram Language Model (30 points)]
 
 We will start with a very basic n-gram language model. Open the provided skeleton code hw1.py in your favorite text editor. Fill in the generator function get ngrams(n, text). The argument n is an int that tells you the size of the n-grams (you can assume n > 0), and the argument text is a list of strings (words) making up a sentence. The function should do the following:
-  • Pad text with enough start tokens ‘<s>’ so that you’re able to make n-grams for the beginning of the sentence, plus a single end token ‘</s>’, which we will need later in Part 3.
+  • Pad text with enough start tokens ‘\<s>’ so that you’re able to make n-grams for the beginning of the sentence, plus a single end token ‘\</s>’, which we will need later in Part 3.
   • For each “real,” non-start token, yield an n-gram tuple of the form (word, context), where word is a string and context is a tuple of the n − 1 preceding words/strings.
 
 Next, let’s work on the class NGramLM, which will keep track of counts from the training data. Look over the initialization method init (self, n). The argument n is an int that tells you the size of the n-grams used in this NGramLM (as before, you can assume n > 0). The initialization method saves n as an internal variable self.n and initializes three other internal variables:
@@ -32,7 +32,7 @@ Next, let’s work on the class NGramLM, which will keep track of counts from th
 
 Fill in the method update(self, text). The argument text is a list of strings. The function should do the following:
   • Use get ngrams(n, text) to get n-grams of the appropriate size for this NGramLM.
-  • For each n-gram, update the internal counts as needed. (Think about how we should handle the start and end tokens, ‘<s>’ and ‘</s>’. . . )
+  • For each n-gram, update the internal counts as needed. (Think about how we should handle the start and end tokens, ‘\<s>’ and ‘\</s>’. . . )
     – The keys of ngram counts should be tuples of the form (word, context) where context is a tuple.
     – The keys of context counts should be tuples of strings.
 
@@ -87,8 +87,8 @@ Fill in the method NGramLM.generate random word(self, context, delta=0). The arg
   • These probabilities all sum to 1.0, so if we imagine a number line from 0.0 to 1.0, the space on that number line can be divided up into zones corresponding to the words in the vocabulary. For example, if the first words are “apple” and “banana,” with probabilities 0.09 and 0.57, respectively, then \[0.0, 0.9) belongs to “apple” and \[0.9, 0.66) belongs to “banana,” and so on. Return the word whose zone contains r.
 
 Once we can generate words, we can also generate sentences. Fill in the method NGramLM.generate random text(self, max length, delta=0). The argument max length is an int representing the maximum number of words to generate. The method should do the following:
-  • Generate the first word using NGramLM.generate random word() with a context consisting of start tokens ‘<s>’.
+  • Generate the first word using NGramLM.generate random word() with a context consisting of start tokens ‘\<s>’.
   • Continue generating using the previously generated words as context for each new word.
-  • Stop generating when either max length is reached, or if the stop token ‘</s>’ is generated.
+  • Stop generating when either max length is reached, or if the stop token ‘\</s>’ is generated.
   • Return the generated sentence as a single string.
 We are all set! You can modify main() and use the provided data files warpeace.txt and shakespeare.txt to test your code and make sure it gives reasonable outputs.
